@@ -1,6 +1,6 @@
 # doing necessary imports
 import pymongo
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 import requests
 from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen as uReq
