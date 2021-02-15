@@ -34,22 +34,17 @@ def index():
                 flipkart_html = bs(flipkartPage, "html.parser")  # parsing the webpage as HTML
                 bigboxes = flipkart_html.findAll("div", {
                     "class": "_2pi5LC col-12-12"})  # seacrhing for appropriate tag to redirect to the product link
-                del bigboxes[
-                    0:3]  # the first 3 members of the list do not contain relevant information, hence deleting them.
+                del bigboxes[0:3]  # the first 3 members of the list do not contain relevant information, hence deleting them.
                 box = bigboxes[0]  # taking the first iteration (for demo)
-                productLink = "https://www.flipkart.com" + box.div.div.div.a[
-                    'href']  # extracting the actual product link
+                productLink = "https://www.flipkart.com" + box.div.div.div.a['href']  # extracting the actual product link
+
                 prodRes = requests.get(productLink)  # getting the product page from server
                 prod_html = bs(prodRes.text, "html.parser")  # parsing the product page as HTML
                 commentboxes = prod_html.find_all('div', {
                     'class': "_16PBlm"})  # finding the HTML section containing the customer comments
 
-                table = db[
-                    searchString]  # creating a collection with the same name as search string. Tables and Collections are analogous.
-                # filename = searchString+".csv" #  filename to save the details
-                # fw = open(filename, "w") # creating a local file to save the details
-                # headers = "Product, Customer Name, Rating, Heading, Comment \n" # providing the heading of the columns
-                # fw.write(headers) # writing first the headers to file
+                table = db[searchString]  # creating a collection with the same name as search string. Tables and Collections are analogous.
+
                 reviews = []  # initializing an empty list for reviews
                 #  iterating over the comment section to get the details of customer and their comments
             for commentbox in commentboxes:
